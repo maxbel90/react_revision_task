@@ -1,4 +1,5 @@
-Test task
+React test task
 
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+To start application you need:
+1. Run `npm install` to download dependencies
+2. Run ``npm start`` to start server-application
