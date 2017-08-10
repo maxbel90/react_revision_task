@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 import AdviceBlock from '../AdviceBlock';
 
-import axios from 'axios';
+import ApiService from '../ApiService';
 
 export default class Advice extends Component {
     constructor() {
@@ -16,21 +16,21 @@ export default class Advice extends Component {
     }
 
     componentDidMount() {
-
-        axios.get(`http://localhost:5001/api/article/${this.getArticleUrl()}`)
-            .then(res => {
-                this.setState({
-                    article: res.data
-                });
+        ApiService().getArticle(this.getArticleUrl()).then(res => {
+            this.setState({
+                article: res.data
             });
+        });
     }
 
     saveChanges(index, value) {
-        axios.post(`http://localhost:5001/api/article/${this.getArticleUrl()}`, {
+        const newAdviceObj = {
             articleUrl: this.getArticleUrl(),
             originalText: this.state.article.blocks[index].originalText,
             usersText: value
-        }).then(res => {
+        };
+
+        ApiService().createAdvice(this.getArticleUrl(), newAdviceObj).then(res => {
             console.log('data saved', res);
         });
     }
@@ -40,11 +40,12 @@ export default class Advice extends Component {
     }
 
     render() {
+        const {article} = this.state;
         return (
             <div>
-                <h2>{this.state.article.label}</h2>
+                <h2>{article.label}</h2>
                 {
-                    this.state.article.blocks && this.state.article.blocks.map((item, index) => {
+                    article.blocks && article.blocks.map((item, index) => {
                         return <AdviceBlock key={index} item={item} index={index} saveChanges={this.saveChanges}/>
                     })
                 }

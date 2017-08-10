@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
-import axios from 'axios';
+import ApiService from '../ApiService';
 
 export default class Articles extends Component {
     constructor() {
@@ -13,8 +13,7 @@ export default class Articles extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/api/articles/')
-            .then(res => {
+        ApiService().getArticles().then(res => {
                 this.setState({
                     articles: res.data
                 });
@@ -22,15 +21,18 @@ export default class Articles extends Component {
     }
 
     render() {
+        const {articles} = this.state;
         return (
             <div>
-                <div> Articles Page</div>
+                <h1> Articles Page</h1>
                 <ul>
-                    {this.state.articles.map(article =>
-                        <li key={article._id}>
-                            <Link to={`/fb/${article.url}`}> {article.label} </Link>
-                        </li>
-                    )}
+                    {
+                        articles.map(article =>
+                            <li key={article._id}>
+                                <Link to={`/fb/${article.url}`}> {article.label} </Link>
+                            </li>
+                        )
+                    }
                 </ul>
             </div>
         );

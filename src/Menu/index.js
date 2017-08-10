@@ -13,16 +13,16 @@ export default class Menu extends Component {
     }
 
     render() {
+        const {menuItems} = this.state;
+
         return (
-            <div>
-                <ul>
-                    {
-                        this.state.menuItems.map((item, index) => {
-                            return <li key={index}><Link to={item.url}>{item.label}</Link></li>
-                        })
-                    }
-                </ul>
-            </div>
+            <ul>
+                {
+                    menuItems.map((item, index) => {
+                        return <li key={index}><Link to={item.url}>{item.label}</Link></li>
+                    })
+                }
+            </ul>
         )
     }
 }

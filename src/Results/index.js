@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import ApiService from '../ApiService';
 
 import Block from '../Block';
 
@@ -17,26 +17,23 @@ export default class Results extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/api/advice/')
-            .then(res => {
-                this.setState({
-                    advice: res.data
-                });
+        ApiService().getAllAdvice().then(res => {
+            this.setState({
+                advice: res.data
             });
+        });
     }
 
     approveItem(id, index) {
-        axios.put(`http://localhost:5001/api/advice/${id}`)
-            .then(res => {
-                this.removeItemFromList(index);
-            });
+        ApiService().approveAdvice(id).then(res => {
+            this.removeItemFromList(index);
+        });
     }
 
     deleteItem(id, index) {
-        axios.delete(`http://localhost:5001/api/advice/${id}`)
-            .then(res => {
-                this.removeItemFromList(index);
-            });
+        ApiService().deleteAdvice(id).then(res => {
+            this.removeItemFromList(index);
+        });
     }
 
     removeItemFromList(index) {
@@ -48,13 +45,16 @@ export default class Results extends Component {
     }
 
     render() {
+        const {advice} = this.state;
         return (
             <div>
-                <div>Results:</div>
-                {this.state.advice.map((block, index) =>
-                    <Block key={block._id} item={block} index={index} deleteItem={this.deleteItem}
-                           approveItem={this.approveItem}/>
-                )}
+                <h1>Results:</h1>
+                {
+                    advice.map((block, index) =>
+                        <Block key={block._id} item={block} index={index} deleteItem={this.deleteItem}
+                               approveItem={this.approveItem}/>
+                    )
+                }
             </div>
         );
     }
