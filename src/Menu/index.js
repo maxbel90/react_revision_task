@@ -16,13 +16,20 @@ export default class Menu extends Component {
         const {menuItems} = this.state;
 
         return (
-            <ul>
-                {
-                    menuItems.map((item, index) => {
-                        return <li key={index}><Link to={item.url}>{item.label}</Link></li>
-                    })
-                }
-            </ul>
+            <nav className="navbar navbar-fixed-top navbar-inverse">
+                <div className="container">
+                    <div id="navbar" className="collapse navbar-collapse">
+                        <ul className="nav navbar-nav">
+                            {
+                                menuItems.map((item, index) => {
+                                    return <li key={index}><Link to={item.url}>{item.label}</Link></li>
+                                })
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
         )
     }
 }

@@ -13,12 +13,14 @@ class App extends Component {
         return (
             <main>
                 <Menu />
-                <Switch>
-                    <Route exact path='/fb/articles' component={Articles}/>
-                    <Route exact path='/fb/results' component={Results}/>
-                    <Route path='/fb/:url(https://.+)' component={Advice}/>
-                    <Redirect to="/fb/articles"/>
-                </Switch>
+                <div className="container main-block">
+                    <Switch>
+                        <Route exact path='/fb/articles' component={Articles}/>
+                        <Route exact path='/fb/results' component={Results}/>
+                        <Route path='/fb/:url(https://.+)' component={Advice}/>
+                        <Redirect to="/fb/articles"/>
+                    </Switch>
+                </div>
             </main>
         );
     }

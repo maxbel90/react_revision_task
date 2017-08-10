@@ -10,10 +10,18 @@ export default class Block extends Component {
     }
 
     deleteItem() {
+        if (!window.confirm('Are you sure that you want to delete this element ?')) {
+            return false;
+        }
+
         this.props.deleteItem(this.getBlockId(), this.props.index);
     }
 
     approveItem() {
+        if (!window.confirm('Are you sure that you want to approve this element ?')) {
+            return false;
+        }
+
         this.props.approveItem(this.getBlockId(), this.props.index);
     }
 
@@ -23,18 +31,20 @@ export default class Block extends Component {
 
     render() {
         return (
-            <div id={`block-${this.getBlockId()}`}>
+            <div id={`block-${this.getBlockId()}`} className="article-advice-block">
                 <div>
-                    <h4>ORIGINAL TEXT</h4>
-                    <span>{this.props.item.originalText}</span>
-                </div>
-                <div>
-                    <h4>USERS VERSION</h4>
-                    <span>{this.props.item.usersText}</span>
-                </div>
-                <div className="text-right">
-                    <input type="button" value="DELETE" onClick={this.deleteItem} />
-                    <input type="button" value="Approve" onClick={this.approveItem} />
+                    <div>
+                        <span>ORIGINAL TEXT</span>
+                        <article>{this.props.item.originalText}</article>
+                    </div>
+                    <div>
+                        <span>USERS VERSION</span>
+                        <article>{this.props.item.usersText}</article>
+                    </div>
+                    <div className="text-right controls">
+                        <input type="button" value="DELETE" onClick={this.deleteItem} className="btn btn-danger"/>
+                        <input type="button" value="Approve" onClick={this.approveItem} className="btn btn-warning"/>
+                    </div>
                 </div>
             </div>
         )

@@ -19,7 +19,7 @@ export default function () {
         approveAdvice: function (id) {
             return axios.put(`${host}/advice/${id}`);
         },
-        deleteAdvice: function(id) {
+        deleteAdvice: function (id) {
             return axios.delete(`${host}/advice/${id}`)
         }
     }

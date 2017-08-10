@@ -14,7 +14,7 @@ export default class AdviceBlock extends Component {
     }
 
     saveChanges() {
-        const newValue = document.getElementById(this.getBlockId()).childNodes[1].value;
+        const newValue = document.querySelector(`#${this.getBlockId()} textarea`).value;
         this.props.saveChanges(this.props.index, newValue);
     }
 
@@ -23,11 +23,19 @@ export default class AdviceBlock extends Component {
     }
 
     render() {
-        return <div id={this.getBlockId()}>
-            <div>{this.state.item.originalText}</div>
-            <textarea name="usersText" defaultValue={this.state.item.originalText} />
-            <input type="button" value="Save changes" onClick={this.saveChanges} />
-        </div>
+        return (
+            <div id={this.getBlockId()} className="article-advice-block">
+                <div>
+                    <span>ORIGINAL TEXT:</span>
+                    <article>{this.state.item.originalText}</article>
+                    <textarea name="usersText" defaultValue={this.state.item.originalText}/>
+                    <p className="text-right">
+                        <input type="button" value="Save changes" onClick={this.saveChanges}
+                               className="btn btn-default"/>
+                    </p>
+                </div>
+            </div>
+        )
     }
 }
 

@@ -14,6 +14,7 @@ export default class Results extends Component {
         this.approveItem = this.approveItem.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
         this.removeItemFromList = this.removeItemFromList.bind(this);
+        this.immutableSplice = this.immutableSplice.bind(this);
     }
 
     componentDidMount() {
@@ -36,11 +37,13 @@ export default class Results extends Component {
         });
     }
 
-    removeItemFromList(index) {
-        this.state.advice.splice(index, 1);
+    immutableSplice(arr, indexToRemove, deleteCount=1) {
+        return [ ...arr.slice(0, indexToRemove), ...arr.slice(indexToRemove + deleteCount) ]
+    }
 
+    removeItemFromList(index) {
         this.setState({
-            advice: this.state.advice
+            advice: this.immutableSplice(this.state.advice, index)
         });
     }
 
